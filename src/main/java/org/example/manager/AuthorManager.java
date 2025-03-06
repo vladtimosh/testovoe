@@ -3,6 +3,9 @@ package manager;
 import dao.AuthorDAO;
 import model.Author;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,11 +59,20 @@ public class AuthorManager {
         System.out.print("Введите имя автора: ");
         String name = scanner.next();
         System.out.print("Введите дату рождения (YYYY-MM-DD): ");
-        String birthDate = scanner.next();
+        String birthDateStr = scanner.next();
 
-        Author author = new Author(0, name, birthDate);
-        authorDAO.insertAuthor(author);
-        System.out.println("Автор успешно добавлен!");
+        try {
+            // Преобразование строки даты в java.sql.Date
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date utilDate = sdf.parse(birthDateStr);
+            Date sqlDate = new Date(utilDate.getTime());
+
+            Author author = new Author(0, name, sqlDate); // Используем java.sql.Date
+            authorDAO.insertAuthor(author);
+            System.out.println("Автор успешно добавлен!");
+        } catch (ParseException e) {
+            System.out.println("Ошибка: неверный формат даты. Пожалуйста, используйте формат YYYY-MM-DD.");
+        }
     }
 
     private void viewAuthor(Scanner scanner) {
@@ -93,12 +105,21 @@ public class AuthorManager {
             System.out.print("Введите новое имя автора: ");
             String newName = scanner.next();
             System.out.print("Введите новую дату рождения (YYYY-MM-DD): ");
-            String newBirthDate = scanner.next();
+            String newBirthDateStr = scanner.next();
 
-            author.setName(newName);
-            author.setBirthDate(newBirthDate);
-            authorDAO.updateAuthor(author);
-            System.out.println("Автор успешно обновлен!");
+            try {
+                // Преобразование строки даты в java.sql.Date
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date utilDate = sdf.parse(newBirthDateStr);
+                Date newSqlDate = new Date(utilDate.getTime());
+
+                author.setName(newName);
+                author.setBirthDate(newSqlDate); // Используем java.sql.Date
+                authorDAO.updateAuthor(author);
+                System.out.println("Автор успешно обновлен!");
+            } catch (ParseException e) {
+                System.out.println("Ошибка: неверный формат даты. Пожалуйста, используйте формат YYYY-MM-DD.");
+            }
         } else {
             System.out.println("Автор не найден.");
         }

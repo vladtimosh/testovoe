@@ -1,8 +1,8 @@
 package model;
 
 public class Genre {
-    private int id;
-    private String name;
+    private int id; // genre_id
+    private String name; // genre_name
 
     public Genre(int id, String name) {
         this.id = id;

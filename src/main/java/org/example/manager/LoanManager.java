@@ -56,14 +56,14 @@ public class LoanManager {
     private void addLoan(Scanner scanner) {
         System.out.print("Введите ID книги: ");
         int bookId = scanner.nextInt();
-        System.out.print("Введите ID пользователя: ");
-        int userId = scanner.nextInt();
+        System.out.print("Введите ID члена: "); // Изменено на memberId
+        int memberId = scanner.nextInt();
         System.out.print("Введите дату займа (YYYY-MM-DD): ");
         String loanDateStr = scanner.next();
         System.out.print("Введите дату возврата (YYYY-MM-DD): ");
         String returnDateStr = scanner.next();
 
-        Loan loan = new Loan(0, bookId, userId, Date.valueOf(loanDateStr), Date.valueOf(returnDateStr));
+        Loan loan = new Loan(0, bookId, memberId, Date.valueOf(loanDateStr), Date.valueOf(returnDateStr)); // Изменено на memberId
         loanDAO.insertLoan(loan);
         System.out.println("Займ успешно добавлен!");
     }
@@ -97,15 +97,15 @@ public class LoanManager {
         if (loan != null) {
             System.out.print("Введите новый ID книги: ");
             int newBookId = scanner.nextInt();
-            System.out.print("Введите новый ID пользователя: ");
-            int newUserId = scanner.nextInt();
+            System.out.print("Введите новый ID члена: "); // Изменено на memberId
+            int newMemberId = scanner.nextInt();
             System.out.print("Введите новую дату займа (YYYY-MM-DD): ");
             String newLoanDateStr = scanner.next();
             System.out.print("Введите новую дату возврата (YYYY-MM-DD): ");
             String newReturnDateStr = scanner.next();
 
             loan.setBookId(newBookId);
-            loan.setUserId(newUserId);
+            loan.setMemberId(newMemberId); // Изменено на setMemberId
             loan.setLoanDate(Date.valueOf(newLoanDateStr));
             loan.setReturnDate(Date.valueOf(newReturnDateStr));
             loanDAO.updateLoan(loan);

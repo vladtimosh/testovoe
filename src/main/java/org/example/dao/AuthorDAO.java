@@ -3,13 +3,15 @@ package dao;
 import model.Author;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorDAO {
-    private String jdbcURL = "jdbc:postgresql://localhost:5432/your_database";
-    private String jdbcUsername = "your_username";
-    private String jdbcPassword = "your_password";
+    private String jdbcURL = "jdbc:postgresql://localhost:5432/Library";
+    private String jdbcUsername = "postgres";
+    private String jdbcPassword = "234500239";
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
@@ -20,7 +22,8 @@ public class AuthorDAO {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, author.getName());
-            statement.setString(2, author.getBirthDate());
+            statement.setDate(2, author.getBirthDate()); // Используем java.sql.Date
+
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,7 +41,7 @@ public class AuthorDAO {
                 author = new Author(
                         resultSet.getInt("author_id"),
                         resultSet.getString("name"),
-                        resultSet.getString("birth_date")
+                        resultSet.getDate("birth_date") // Получаем java.sql.Date
                 );
             }
         } catch (SQLException e) {
@@ -57,7 +60,7 @@ public class AuthorDAO {
                 Author author = new Author(
                         resultSet.getInt("author_id"),
                         resultSet.getString("name"),
-                        resultSet.getString("birth_date")
+                        resultSet.getDate("birth_date") // Получаем java.sql.Date
                 );
                 authors.add(author);
             }
@@ -72,7 +75,7 @@ public class AuthorDAO {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, author.getName());
-            statement.setString(2, author.getBirthDate());
+            statement.setDate(2, author.getBirthDate()); // Установка java.sql.Date
             statement.setInt(3, author.getId());
             statement.executeUpdate();
         } catch (SQLException e) {

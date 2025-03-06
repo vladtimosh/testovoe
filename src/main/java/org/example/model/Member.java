@@ -1,14 +1,16 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Member {
     private int id;
-    private String name;
-    private String email;
+    private String fullName; // Полное имя
+    private LocalDate membershipDate; // Дата членства
 
-    public Member(int id, String name, String email) {
+    public Member(int id, String fullName, LocalDate membershipDate) {
         this.id = id;
-        this.name = name;
-        this.email = email;
+        this.fullName = fullName;
+        this.membershipDate = membershipDate;
     }
 
     // Геттеры и сеттеры
@@ -16,28 +18,24 @@ public class Member {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getFullName() {
+        return fullName;
     }
 
-    public String getName() {
-        return name;
+    public void setFullName(String fullName) { // Добавлен метод setFullName
+        this.fullName = fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public LocalDate getMembershipDate() {
+        return membershipDate;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMembershipDate(LocalDate membershipDate) { // Добавлен метод setMembershipDate
+        this.membershipDate = membershipDate;
     }
 
     @Override
     public String toString() {
-        return "Member{id=" + id + ", name='" + name + '\'' + ", email='" + email + '\'' + '}';
+        return "Member{id=" + id + ", fullName='" + fullName + '\'' + ", membershipDate=" + membershipDate + '}';
     }
 }

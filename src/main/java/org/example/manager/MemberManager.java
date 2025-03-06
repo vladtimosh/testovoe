@@ -3,6 +3,7 @@ package manager;
 import dao.MemberDAO;
 import model.Member;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -53,12 +54,12 @@ public class MemberManager {
     }
 
     private void addMember(Scanner scanner) {
-        System.out.print("Введите имя члена: ");
-        String name = scanner.next();
-        System.out.print("Введите email члена: ");
-        String email = scanner.next();
+        System.out.print("Введите полное имя члена: ");
+        String fullName = scanner.next();
+        System.out.print("Введите дату членства (YYYY-MM-DD): ");
+        LocalDate membershipDate = LocalDate.parse(scanner.next());
 
-        Member member = new Member(0, name, email);
+        Member member = new Member(0, fullName, membershipDate);
         memberDAO.insertMember(member);
         System.out.println("Член успешно добавлен!");
     }
@@ -90,13 +91,13 @@ public class MemberManager {
         int id = scanner.nextInt();
         Member member = memberDAO.getMember(id);
         if (member != null) {
-            System.out.print("Введите новое имя члена: ");
-            String newName = scanner.next();
-            System.out.print("Введите новый email члена: ");
-            String newEmail = scanner.next();
+            System.out.print("Введите новое полное имя члена: ");
+            String newFullName = scanner.next();
+            System.out.print("Введите новую дату членства (YYYY-MM-DD): ");
+            LocalDate newMembershipDate = LocalDate.parse(scanner.next());
 
-            member.setName(newName);
-            member.setEmail(newEmail);
+            member.setFullName(newFullName);
+            member.setMembershipDate(newMembershipDate); // Убедитесь, что есть соответствующий сеттер
             memberDAO.updateMember(member);
             System.out.println("Член успешно обновлен!");
         } else {

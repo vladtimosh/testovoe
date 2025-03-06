@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GenreDAO {
-    private String jdbcURL = "jdbc:postgresql://localhost:5432/your_database";
-    private String jdbcUsername = "your_username";
-    private String jdbcPassword = "your_password";
+    private String jdbcURL = "jdbc:postgresql://localhost:5432/Library";
+    private String jdbcUsername = "postgres";
+    private String jdbcPassword = "234500239";
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     public void insertGenre(Genre genre) {
-        String sql = "INSERT INTO Genres (name) VALUES (?)";
+        String sql = "INSERT INTO genres (genre_name) VALUES (?)"; // Изменено на genre_name
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, genre.getName());
@@ -28,7 +28,7 @@ public class GenreDAO {
 
     public Genre getGenre(int id) {
         Genre genre = null;
-        String sql = "SELECT * FROM Genres WHERE genre_id = ?";
+        String sql = "SELECT * FROM genres WHERE genre_id = ?"; // Изменено на genres
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -36,7 +36,7 @@ public class GenreDAO {
             if (resultSet.next()) {
                 genre = new Genre(
                         resultSet.getInt("genre_id"),
-                        resultSet.getString("name")
+                        resultSet.getString("genre_name") // Изменено на genre_name
                 );
             }
         } catch (SQLException e) {
@@ -47,14 +47,14 @@ public class GenreDAO {
 
     public List<Genre> getAllGenres() {
         List<Genre> genres = new ArrayList<>();
-        String sql = "SELECT * FROM Genres";
+        String sql = "SELECT * FROM genres"; // Изменено на genres
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 Genre genre = new Genre(
                         resultSet.getInt("genre_id"),
-                        resultSet.getString("name")
+                        resultSet.getString("genre_name") // Изменено на genre_name
                 );
                 genres.add(genre);
             }
@@ -65,7 +65,7 @@ public class GenreDAO {
     }
 
     public void updateGenre(Genre genre) {
-        String sql = "UPDATE Genres SET name = ? WHERE genre_id = ?";
+        String sql = "UPDATE genres SET genre_name = ? WHERE genre_id = ?"; // Изменено на genre_name
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, genre.getName());
@@ -77,7 +77,7 @@ public class GenreDAO {
     }
 
     public void deleteGenre(int id) {
-        String sql = "DELETE FROM Genres WHERE genre_id = ?";
+        String sql = "DELETE FROM genres WHERE genre_id = ?"; // Изменено на genres
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);

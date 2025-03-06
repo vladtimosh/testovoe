@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberDAO {
-    private String jdbcURL = "jdbc:postgresql://localhost:5432/your_database";
-    private String jdbcUsername = "your_username";
-    private String jdbcPassword = "your_password";
+    private String jdbcURL = "jdbc:postgresql://localhost:5432/Library";
+    private String jdbcUsername = "postgres";
+    private String jdbcPassword = "234500239";
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     public void insertMember(Member member) {
-        String sql = "INSERT INTO Members (name, email) VALUES (?, ?)";
+        String sql = "INSERT INTO members (full_name, membership_date) VALUES (?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, member.getName());
-            statement.setString(2, member.getEmail());
+            statement.setString(1, member.getFullName());
+            statement.setDate(2, Date.valueOf(member.getMembershipDate())); // Убедитесь, что это поле существует
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,7 +29,7 @@ public class MemberDAO {
 
     public Member getMember(int id) {
         Member member = null;
-        String sql = "SELECT * FROM Members WHERE member_id = ?";
+        String sql = "SELECT * FROM members WHERE member_id = ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -37,8 +37,8 @@ public class MemberDAO {
             if (resultSet.next()) {
                 member = new Member(
                         resultSet.getInt("member_id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("email")
+                        resultSet.getString("full_name"),
+                        resultSet.getDate("membership_date").toLocalDate() // Преобразование даты
                 );
             }
         } catch (SQLException e) {
@@ -49,15 +49,15 @@ public class MemberDAO {
 
     public List<Member> getAllMembers() {
         List<Member> members = new ArrayList<>();
-        String sql = "SELECT * FROM Members";
+        String sql = "SELECT * FROM members";
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 Member member = new Member(
                         resultSet.getInt("member_id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("email")
+                        resultSet.getString("full_name"),
+                        resultSet.getDate("membership_date").toLocalDate() // Преобразование даты
                 );
                 members.add(member);
             }
@@ -68,11 +68,11 @@ public class MemberDAO {
     }
 
     public void updateMember(Member member) {
-        String sql = "UPDATE Members SET name = ?, email = ? WHERE member_id = ?";
+        String sql = "UPDATE members SET full_name = ?, membership_date = ? WHERE member_id = ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, member.getName());
-            statement.setString(2, member.getEmail());
+            statement.setString(1, member.getFullName());
+            statement.setDate(2, Date.valueOf(member.getMembershipDate())); // Убедитесь, что это поле существует
             statement.setInt(3, member.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -81,7 +81,7 @@ public class MemberDAO {
     }
 
     public void deleteMember(int id) {
-        String sql = "DELETE FROM Members WHERE member_id = ?";
+        String sql = "DELETE FROM members WHERE member_id = ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);

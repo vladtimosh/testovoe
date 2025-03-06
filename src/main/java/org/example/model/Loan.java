@@ -5,14 +5,15 @@ import java.util.Date;
 public class Loan {
     private int id;
     private int bookId;
-    private int userId;
+    private int memberId; // Изменено на memberId
     private Date loanDate;
     private Date returnDate;
 
-    public Loan(int id, int bookId, int userId, Date loanDate, Date returnDate) {
+    // Конструктор
+    public Loan(int id, int bookId, int memberId, Date loanDate, Date returnDate) {
         this.id = id;
         this.bookId = bookId;
-        this.userId = userId;
+        this.memberId = memberId; // Инициализация memberId
         this.loanDate = loanDate;
         this.returnDate = returnDate;
     }
@@ -34,12 +35,12 @@ public class Loan {
         this.bookId = bookId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getMemberId() { // Изменено на getMemberId
+        return memberId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setMemberId(int memberId) { // Изменено на setMemberId
+        this.memberId = memberId;
     }
 
     public Date getLoanDate() {
@@ -60,7 +61,7 @@ public class Loan {
 
     @Override
     public String toString() {
-        return "Loan{id=" + id + ", bookId=" + bookId + ", userId=" + userId +
+        return "Loan{id=" + id + ", bookId=" + bookId + ", memberId=" + memberId + // Изменено на memberId
                 ", loanDate=" + loanDate + ", returnDate=" + returnDate + '}';
     }
 }

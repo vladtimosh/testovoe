@@ -1,16 +1,19 @@
 package model;
 
+import java.sql.Date; // Импортируем java.sql.Date
+
 public class Book {
     private int id;
     private String title;
-    private String publishedDate;
+    private Date publishedDate; // Используем java.sql.Date
     private int genreId;
 
-    public Book(int id, String title, String publishedDate, int genreId) {
+    // Конструктор
+    public Book(int id, String title, Date publishedDate, int genreId) {
         this.id = id;
         this.title = title;
         this.publishedDate = publishedDate;
-        this.genreId = genreId;
+        this.genreId = genreId; // Присваиваем значение genreId
     }
 
     // Геттеры и сеттеры
@@ -30,11 +33,11 @@ public class Book {
         this.title = title;
     }
 
-    public String getPublishedDate() {
+    public Date getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(String publishedDate) {
+    public void setPublishedDate(Date publishedDate) {
         this.publishedDate = publishedDate;
     }
 
@@ -49,7 +52,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{id=" + id + ", title='" + title + '\'' +
-                ", publishedDate='" + publishedDate + '\'' +
+                ", publishedDate=" + publishedDate + // Изменен формат вывода
                 ", genreId=" + genreId + '}';
     }
 }

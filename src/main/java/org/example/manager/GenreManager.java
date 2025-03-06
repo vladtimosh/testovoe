@@ -25,7 +25,7 @@ public class GenreManager {
             System.out.println("5. Удалить жанр");
             System.out.println("6. Вернуться в главное меню");
             System.out.print("Выберите опцию: ");
-            genreChoice = scanner.nextInt();
+            genreChoice = getValidInteger(scanner);
 
             switch (genreChoice) {
                 case 1:
@@ -63,7 +63,7 @@ public class GenreManager {
 
     private void viewGenre(Scanner scanner) {
         System.out.print("Введите ID жанра: ");
-        int id = scanner.nextInt();
+        int id = getValidInteger(scanner);
         Genre genre = genreDAO.getGenre(id);
         if (genre != null) {
             System.out.println(genre);
@@ -85,7 +85,7 @@ public class GenreManager {
 
     private void updateGenre(Scanner scanner) {
         System.out.print("Введите ID жанра для обновления: ");
-        int id = scanner.nextInt();
+        int id = getValidInteger(scanner);
         Genre genre = genreDAO.getGenre(id);
         if (genre != null) {
             System.out.print("Введите новое название жанра: ");
@@ -101,8 +101,19 @@ public class GenreManager {
 
     private void deleteGenre(Scanner scanner) {
         System.out.print("Введите ID жанра для удаления: ");
-        int id = scanner.nextInt();
+        int id = getValidInteger(scanner);
         genreDAO.deleteGenre(id);
         System.out.println("Жанр успешно удален!");
+    }
+
+    // Метод для обработки ввода пользователя
+    private int getValidInteger(Scanner scanner) {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.next());
+            } catch (NumberFormatException e) {
+                System.out.print("Пожалуйста, введите целое число: ");
+            }
+        }
     }
 }

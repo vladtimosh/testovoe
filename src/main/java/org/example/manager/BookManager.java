@@ -3,6 +3,9 @@ package manager;
 import dao.BookDAO;
 import model.Book;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,13 +59,22 @@ public class BookManager {
         System.out.print("Введите название книги: ");
         String title = scanner.next();
         System.out.print("Введите дату публикации (YYYY-MM-DD): ");
-        String publishedDate = scanner.next();
+        String publishedDateStr = scanner.next();
         System.out.print("Введите ID жанра: ");
         int genreId = scanner.nextInt();
 
-        Book book = new Book(0, title, publishedDate, genreId);
-        bookDAO.insertBook(book);
-        System.out.println("Книга успешно добавлена!");
+        try {
+            // Преобразование строки даты в java.sql.Date
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date utilDate = sdf.parse(publishedDateStr);
+            Date publishedDate = new Date(utilDate.getTime());
+
+            Book book = new Book(0, title, publishedDate, genreId); // Создаем объект книги
+            bookDAO.insertBook(book); // Вставляем книгу в базу данных
+            System.out.println("Книга успешно добавлена!");
+        } catch (ParseException e) {
+            System.out.println("Ошибка: неверный формат даты. Пожалуйста, используйте формат YYYY-MM-DD.");
+        }
     }
 
     private void viewBook(Scanner scanner) {
@@ -70,7 +82,7 @@ public class BookManager {
         int id = scanner.nextInt();
         Book book = bookDAO.getBook(id);
         if (book != null) {
-            System.out.println(book);
+            System.out.println(book); // Выводим информацию о книге
         } else {
             System.out.println("Книга не найдена.");
         }
@@ -82,7 +94,7 @@ public class BookManager {
             System.out.println("Нет доступных книг.");
         } else {
             for (Book book : books) {
-                System.out.println(book);
+                System.out.println(book); // Выводим информацию о каждой книге
             }
         }
     }
@@ -95,15 +107,25 @@ public class BookManager {
             System.out.print("Введите новое название книги: ");
             String newTitle = scanner.next();
             System.out.print("Введите новую дату публикации (YYYY-MM-DD): ");
-            String newPublishedDate = scanner.next();
+            String newPublishedDateStr = scanner.next();
             System.out.print("Введите новый ID жанра: ");
             int newGenreId = scanner.nextInt();
 
-            book.setTitle(newTitle);
-            book.setPublishedDate(newPublishedDate);
-            book.setGenreId(newGenreId);
-            bookDAO.updateBook(book);
-            System.out.println("Книга успешно обновлена!");
+            try {
+                // Преобразование строки даты в java.sql.Date
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date utilDate = sdf.parse(newPublishedDateStr);
+                Date newPublishedDate = new Date(utilDate.getTime());
+
+                // Обновляем данные книги
+                book.setTitle(newTitle);
+                book.setPublishedDate(newPublishedDate);
+                book.setGenreId(newGenreId);
+                bookDAO.updateBook(book); // Обновляем книгу в базе данных
+                System.out.println("Книга успешно обновлена!");
+            } catch (ParseException e) {
+                System.out.println("Ошибка: неверный формат даты. Пожалуйста, используйте формат YYYY-MM-DD.");
+            }
         } else {
             System.out.println("Книга не найдена.");
         }
@@ -112,7 +134,7 @@ public class BookManager {
     private void deleteBook(Scanner scanner) {
         System.out.print("Введите ID книги для удаления: ");
         int id = scanner.nextInt();
-        bookDAO.deleteBook(id);
+        bookDAO.deleteBook(id); // Удаляем книгу из базы данных
         System.out.println("Книга успешно удалена!");
     }
 }

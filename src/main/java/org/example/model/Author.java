@@ -1,11 +1,13 @@
 package model;
 
+import java.sql.Date;
+
 public class Author {
     private int id;
     private String name;
-    private String birthDate;
+    private Date birthDate; // Изменено на java.sql.Date
 
-    public Author(int id, String name, String birthDate) {
+    public Author(int id, String name, Date birthDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
@@ -28,17 +30,17 @@ public class Author {
         this.name = name;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
     @Override
     public String toString() {
         return "Author{id=" + id + ", name='" + name + '\'' +
-                ", birthDate='" + birthDate + '\'' + '}';
+                ", birthDate=" + birthDate + '}'; // Изменено на Date
     }
 }
