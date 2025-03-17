@@ -2,14 +2,13 @@ package org.example.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "Loans")
-public class Loan {
+@Table(name = "Reviews")
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long loanId;
+    private Long reviewId;
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
@@ -19,16 +18,18 @@ public class Loan {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    private LocalDate loanDate;
-    private LocalDate returnDate;
+    @Column(nullable = false)
+    private int rating;
+
+    private String comment;
 
     // Getters and Setters
-    public Long getLoanId() {
-        return loanId;
+    public Long getReviewId() {
+        return reviewId;
     }
 
-    public void setLoanId(Long loanId) {
-        this.loanId = loanId;
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
     }
 
     public Book getBook() {
@@ -47,19 +48,19 @@ public class Loan {
         this.member = member;
     }
 
-    public LocalDate getLoanDate() {
-        return loanDate;
+    public int getRating() {
+        return rating;
     }
 
-    public void setLoanDate(LocalDate loanDate) {
-        this.loanDate = loanDate;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
-    public LocalDate getReturnDate() {
-        return returnDate;
+    public String getComment() {
+        return comment;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

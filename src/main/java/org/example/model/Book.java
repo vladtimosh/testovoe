@@ -1,25 +1,42 @@
-package model;
+package org.example.model;
 
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "Books")
 public class Book {
-    private int id;
-    private String title;
-    private String publishedDate;
-    private int genreId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long bookId;
 
-    public Book(int id, String title, String publishedDate, int genreId) {
-        this.id = id;
+    @Column(nullable = false)
+    private String title;
+
+    private LocalDate publishedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "genre_id", nullable = false)
+    private Genre genre;
+
+    // Конструктор без параметров
+    public Book() {}
+
+    // Конструктор с параметрами
+    public Book(String title, LocalDate publishedDate, Genre genre) {
         this.title = title;
         this.publishedDate = publishedDate;
-        this.genreId = genreId;
+        this.genre = genre;
     }
 
-    // Геттеры и сеттеры
-    public int getId() {
-        return id;
+    // Getters and Setters
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {
@@ -30,26 +47,42 @@ public class Book {
         this.title = title;
     }
 
-    public String getPublishedDate() {
+    public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(String publishedDate) {
+    public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
 
-    public int getGenreId() {
-        return genreId;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
     @Override
     public String toString() {
-        return "Book{id=" + id + ", title='" + title + '\'' +
-                ", publishedDate='" + publishedDate + '\'' +
-                ", genreId=" + genreId + '}';
+        return "Book{" +
+                "bookId=" + bookId +
+                ", title='" + title + '\'' +
+                ", publishedDate=" + publishedDate +
+                ", genreId=" + (genre != null ? genre.getGenreId() : "null") +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book)) return false;
+        Book book = (Book) o;
+        return bookId != null && bookId.equals(book.bookId);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * (bookId != null ? bookId.hashCode() : 0);
     }
 }

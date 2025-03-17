@@ -1,23 +1,39 @@
-package model;
+package org.example.model;
 
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "authors")
 public class Author {
-    private int id;
-    private String name;
-    private String birthDate;
+    @Id
+    @Column(name = "author_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer authorId;
 
-    public Author(int id, String name, String birthDate) {
-        this.id = id;
+    @Column(name = "name",nullable = false)
+    private String name;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    // Конструктор без параметров
+    public Author() {}
+
+    // Конструктор с параметрами
+    public Author(String name, LocalDate birthDate) {
         this.name = name;
         this.birthDate = birthDate;
     }
 
-    // Геттеры и сеттеры
-    public int getId() {
-        return id;
+    // Getters and Setters
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
     public String getName() {
@@ -28,17 +44,20 @@ public class Author {
         this.name = name;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
     @Override
     public String toString() {
-        return "Author{id=" + id + ", name='" + name + '\'' +
-                ", birthDate='" + birthDate + '\'' + '}';
+        return "Author{" +
+                "authorId=" + authorId +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
     }
 }

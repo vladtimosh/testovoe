@@ -1,33 +1,32 @@
-package model;
+package org.example.model;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Genres")
 public class Genre {
-    private int id;
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long genreId;
 
-    public Genre(int id, String name) {
-        this.id = id;
-        this.name = name;
+    @Column(nullable = false)
+    private String genreName;
+
+    // Getters and Setters
+    public Long getGenreId() {
+        return genreId;
     }
 
-    // Геттеры и сеттеры
-    public int getId() {
-        return id;
+    public void setGenreId(Long genreId) {
+        this.genreId = genreId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getGenreName() {
+        return genreName;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Genre{id=" + id + ", name='" + name + '\'' + '}';
+    public void setGenreName(String genreName) {
+        this.genreName = genreName;
     }
 }
