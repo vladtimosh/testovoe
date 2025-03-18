@@ -1,0 +1,9 @@
+<h2>Loan Details</h2>
+<div *ngIf="loan">
+  <p>ID: {{ loan.loanId }}</p>
+  <p>Book: {{ loan.book.title }}</p>
+  <p>Member: {{ loan.member.fullName }}</p>
+  <p>Loan Date: {{ loan.loanDate | date }}</p>
+  <p>Return Date: {{ loan.returnDate | date }}</p>
+</div>
+<a routerLink="/loans">Back to List</a>

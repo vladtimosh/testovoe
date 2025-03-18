@@ -1,0 +1,9 @@
+<h2>{{ isEditMode ? 'Edit Genre' : 'Add Genre' }}</h2>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="genreName">Name:</label>
+    <input type="text" id="genreName" [(ngModel)]="genre.genreName" name="genreName" required />
+  </div>
+  <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+</form>
+<a routerLink="/genres">Cancel</a>

@@ -1,0 +1,24 @@
+<h2>Authors</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Birth Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let author of authors">
+      <td>{{ author.authorId }}</td>
+      <td>{{ author.name }}</td>
+      <td>{{ author.birthDate | date }}</td>
+      <td>
+        <a [routerLink]="['/authors', author.authorId]">View</a>
+        <a [routerLink]="['/authors', author.authorId, 'edit']">Edit</a>
+        <a [routerLink]="['/authors', author.authorId, 'delete']">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a routerLink="/authors/create">Add New Author</a>

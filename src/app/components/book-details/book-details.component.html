@@ -1,0 +1,12 @@
+<h2>Book Details</h2>
+<div *ngIf="book">
+  <p>ID: {{ book.bookId }}</p>
+  <p>Title: {{ book.title }}</p>
+  <p>Published Date: {{ book.publishedDate | date }}</p>
+  <p>Genre: {{ book.genre.genreName }}</p>
+  <p>Authors:</p>
+  <ul>
+    <li *ngFor="let author of book.authors">{{ author.name }}</li>
+  </ul>
+</div>
+<a routerLink="/books">Back to List</a>

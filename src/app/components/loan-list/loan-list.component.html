@@ -1,0 +1,28 @@
+<h2>Loans</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Book</th>
+      <th>Member</th>
+      <th>Loan Date</th>
+      <th>Return Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let loan of loans">
+      <td>{{ loan.loanId }}</td>
+      <td>{{ loan.book.title }}</td>
+      <td>{{ loan.member.fullName }}</td>
+      <td>{{ loan.loanDate | date }}</td>
+      <td>{{ loan.returnDate | date }}</td>
+      <td>
+        <a [routerLink]="['/loans', loan.loanId]">View</a>
+        <a [routerLink]="['/loans', loan.loanId, 'edit']">Edit</a>
+        <a [routerLink]="['/loans', loan.loanId, 'delete']">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a routerLink="/loans/create">Add New Loan</a>

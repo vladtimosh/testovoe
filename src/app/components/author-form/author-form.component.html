@@ -1,0 +1,13 @@
+<h2>{{ isEditMode ? 'Edit Author' : 'Add Author' }}</h2>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" [(ngModel)]="author.name" name="name" required />
+  </div>
+  <div>
+    <label for="birthDate">Birth Date:</label>
+    <input type="date" id="birthDate" [(ngModel)]="author.birthDate" name="birthDate" required />
+  </div>
+  <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+</form>
+<a routerLink="/authors">Cancel</a>

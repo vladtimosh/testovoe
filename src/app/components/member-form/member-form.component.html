@@ -1,0 +1,13 @@
+<h2>{{ isEditMode ? 'Edit Member' : 'Add Member' }}</h2>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" [(ngModel)]="member.fullName" name="fullName" required />
+  </div>
+  <div>
+    <label for="joinDate">Join Date:</label>
+    <input type="date" id="joinDate" [(ngModel)]="member.membershipDate" name="membershipDate" required />
+  </div>
+  <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+</form>
+<a routerLink="/members">Cancel</a>

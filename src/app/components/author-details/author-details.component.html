@@ -1,0 +1,7 @@
+<h2>Author Details</h2>
+<div *ngIf="author">
+  <p>ID: {{ author.authorId }}</p>
+  <p>Name: {{ author.name }}</p>
+  <p>Birth Date: {{ author.birthDate | date }}</p>
+</div>
+<a routerLink="/authors">Back to List</a>

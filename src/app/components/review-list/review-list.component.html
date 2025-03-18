@@ -1,0 +1,28 @@
+<h2>Reviews</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Book</th>
+      <th>Member</th>
+      <th>Rating</th>
+      <th>Comment</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let review of reviews">
+      <td>{{ review.reviewId }}</td>
+      <td>{{ review.book.title }}</td>
+      <td>{{ review.member.fullName }}</td>
+      <td>{{ review.rating }}</td>
+      <td>{{ review.comment }}</td>
+      <td>
+        <a [routerLink]="['/reviews', review.reviewId]">View</a>
+        <a [routerLink]="['/reviews', review.reviewId, 'edit']">Edit</a>
+        <a [routerLink]="['/reviews', review.reviewId, 'delete']">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a routerLink="/reviews/create">Add New Review</a>

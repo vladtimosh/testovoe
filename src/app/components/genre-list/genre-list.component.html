@@ -1,0 +1,22 @@
+<h2>Genres</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let genre of genres">
+      <td>{{ genre.genreId }}</td>
+      <td>{{ genre.genreName }}</td>
+      <td>
+        <a [routerLink]="['/genres', genre.genreId]">View</a>
+        <a [routerLink]="['/genres', genre.genreId, 'edit']">Edit</a>
+        <a [routerLink]="['/genres', genre.genreId, 'delete']">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a routerLink="/genres/create">Add New Genre</a>

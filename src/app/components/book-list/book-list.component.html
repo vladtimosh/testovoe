@@ -1,0 +1,30 @@
+<h2>Books</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Published Date</th>
+      <th>Genre</th>
+      <th>Authors</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of books">
+      <td>{{ book.bookId }}</td>
+      <td>{{ book.title }}</td>
+      <td>{{ book.publishedDate | date }}</td>
+      <td>{{ book.genre.genreName }}</td>
+      <td>
+        <span *ngFor="let author of book.authors">{{ author.name }} </span>
+      </td>
+      <td>
+        <a [routerLink]="['/books', book.bookId]">View</a>
+        <a [routerLink]="['/books', book.bookId, 'edit']">Edit</a>
+        <a [routerLink]="['/books', book.bookId, 'delete']">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a routerLink="/books/create">Add New Book</a>

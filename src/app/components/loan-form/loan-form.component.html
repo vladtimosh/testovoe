@@ -1,0 +1,21 @@
+<h2>{{ isEditMode ? 'Edit Loan' : 'Add Loan' }}</h2>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="book">Book:</label>
+    <input type="text" id="book" [(ngModel)]="loan.book.title" name="book" required />
+  </div>
+  <div>
+    <label for="member">Member:</label>
+    <input type="text" id="member" [(ngModel)]="loan.member.fullName" name="member" required />
+  </div>
+  <div>
+    <label for="loanDate">Loan Date:</label>
+    <input type="date" id="loanDate" [(ngModel)]="loan.loanDate" name="loanDate" required />
+  </div>
+  <div>
+    <label for="returnDate">Return Date:</label>
+    <input type="date" id="returnDate" [(ngModel)]="loan.returnDate" name="returnDate" required />
+  </div>
+  <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+</form>
+<a routerLink="/loans">Cancel</a>

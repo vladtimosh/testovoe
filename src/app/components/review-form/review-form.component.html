@@ -1,0 +1,21 @@
+<h2>{{ isEditMode ? 'Edit Review' : 'Add Review' }}</h2>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="book">Book:</label>
+    <input type="text" id="book" [(ngModel)]="review.book.title" name="book" required />
+  </div>
+  <div>
+    <label for="member">Member:</label>
+    <input type="text" id="member" [(ngModel)]="review.member.fullName" name="member" required />
+  </div>
+  <div>
+    <label for="rating">Rating:</label>
+    <input type="number" id="rating" [(ngModel)]="review.rating" name="rating" required />
+  </div>
+  <div>
+    <label for="comment">Comment:</label>
+    <textarea id="comment" [(ngModel)]="review.comment" name="comment" required></textarea>
+  </div>
+  <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+</form>
+<a routerLink="/reviews">Cancel</a>

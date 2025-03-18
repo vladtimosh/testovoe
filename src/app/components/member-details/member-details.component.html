@@ -1,0 +1,7 @@
+<h2>Member Details</h2>
+<div *ngIf="member">
+  <p>ID: {{ member.memberId }}</p>
+  <p>Full Name: {{ member.fullName }}</p>
+  <p>Join Date: {{ member.membershipDate | date }}</p>
+</div>
+<a routerLink="/members">Back to List</a>

@@ -1,0 +1,24 @@
+<h2>Members</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Full Name</th>
+      <th>Join Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let member of members">
+      <td>{{ member.memberId }}</td>
+      <td>{{ member.fullName }}</td>
+      <td>{{ member.membershipDate | date }}</td>
+      <td>
+        <a [routerLink]="['/members', member.memberId]">View</a>
+        <a [routerLink]="['/members', member.memberId, 'edit']">Edit</a>
+        <a [routerLink]="['/members', member.memberId, 'delete']">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a routerLink="/members/create">Add New Member</a>

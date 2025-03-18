@@ -1,0 +1,9 @@
+<h2>Review Details</h2>
+<div *ngIf="review">
+  <p>ID: {{ review.reviewId }}</p>
+  <p>Book: {{ review.book.title }}</p>
+  <p>Member: {{ review.member.fullName }}</p>
+  <p>Rating: {{ review.rating }}</p>
+  <p>Comment: {{ review.comment }}</p>
+</div>
+<a routerLink="/reviews">Back to List</a>
